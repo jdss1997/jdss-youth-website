@@ -1,0 +1,409 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- ========================
+       JDSS YOUTH – JAI DURGA SEVA SAMITHI (JDSS KA MURTHI)
+       FINAL SINGLE-FILE WEBSITE – Responsive • Glassmorphism • Parallax • AOS • Lightbox • Slideshow • 2-Profile Uploader
+       ======================== -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JDSS Youth – Jai Durga Seva Samithi</title>
+  <meta name="description" content="JDSS Youth – Jai Durga Seva Samithi (Kodimail, Jagityal). Since 1997, celebrating Durga Mata & Ganesh Chaturthi with devotion, unity and service." />
+  <link rel="icon" href="favicon.ico" />
+
+  <!-- Tailwind CSS + AOS + Alpine.js -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.0/cdn.min.js" defer></script>
+
+  <style>
+    :root{ --glass: rgba(255,255,255,.08); --glass-brd: rgba(255,255,255,.22); }
+    html,body{ scroll-behavior:smooth; }
+    body{ color:#fff; background: radial-gradient(1200px 600px at 10% 10%, #1b1f52 0%, transparent 60%),
+                         radial-gradient(900px 500px at 90% 10%, #3b1b52 0%, transparent 60%),
+                         linear-gradient(135deg,#0b0f22,#0a0d1f 55%, #0a0a0a); }
+    .glass{ background:var(--glass); backdrop-filter: blur(14px); border:1px solid var(--glass-brd); border-radius:20px; }
+    .soft{ transition: transform .25s ease, box-shadow .25s ease; }
+    .soft:hover{ transform: translateY(-4px); box-shadow: 0 12px 28px rgba(0,0,0,.35); }
+    .parallax{ background-image:url('jdss1.jpg'); background-size:cover; background-position:center; background-attachment:fixed; }
+    /* Lightbox */
+    .lightbox{ display:none; position:fixed; inset:0; z-index:1000; background:rgba(0,0,0,.92); align-items:center; justify-content:center; }
+    .lightbox.open{ display:flex; }
+    .lightbox img,.lightbox video{ max-width:90vw; max-height:80vh; border-radius:14px; }
+    .lightbox .close{ position:absolute; top:12px; right:16px; font-size:2rem; }
+  </style>
+</head>
+<body>
+
+  <!-- ================= NAVBAR ================= -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-black/40 backdrop-blur border-b border-white/10" x-data="{open:false}">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex h-16 items-center justify-between">
+        <a href="#home" class="flex items-center gap-3">
+          <!-- Inline SVG LOGO -->
+          <svg class="h-10 w-10" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" aria-label="JDSS Youth Logo">
+            <defs>
+              <radialGradient id="gfill" cx="50%" cy="50%" r="60%">
+                <stop offset="0%" stop-color="#fff176"/>
+                <stop offset="60%" stop-color="#ffc107"/>
+                <stop offset="100%" stop-color="#ff9800"/>
+              </radialGradient>
+              <linearGradient id="gstroke" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#ff9933"/>
+                <stop offset="50%" stop-color="#ffd700"/>
+                <stop offset="100%" stop-color="#06a77d"/>
+              </linearGradient>
+              <path id="topArc" d="M 40,150 A 110,110 0 0,1 260,150"/>
+              <path id="bottomArc" d="M 260,150 A 110,110 0 0,1 40,150"/>
+              <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="1" stdDeviation="1.2" flood-color="#000" flood-opacity="0.35"/>
+              </filter>
+            </defs>
+            <circle cx="150" cy="150" r="140" fill="none" stroke="url(#gstroke)" stroke-width="10"/>
+            <circle cx="150" cy="150" r="126" fill="rgba(0,0,0,0.25)" stroke="rgba(255,255,255,0.35)" stroke-width="2"/>
+            <text fill="#ffffff" font-size="22" font-weight="700" letter-spacing="2">
+              <textPath href="#topArc" startOffset="50%" text-anchor="middle">JDSS YOUTH</textPath>
+            </text>
+            <text fill="#ffffff" font-size="16" font-weight="700" letter-spacing="1">
+              <textPath href="#bottomArc" startOffset="50%" text-anchor="middle">JAI DURGA SEVA SAMITHI</textPath>
+            </text>
+            <g filter="url(#shadow)">
+              <circle cx="150" cy="150" r="64" fill="url(#gfill)" opacity="0.15"/>
+              <text x="150" y="145" text-anchor="middle" font-size="60" font-family="'Noto Sans Devanagari', serif" fill="#ffd700">ॐ</text>
+              <path d="M150 155 C 135 195, 185 205, 150 240" stroke="#ffd700" stroke-width="6" fill="none" stroke-linecap="round"/>
+              <rect x="142" y="112" width="16" height="6" rx="3" fill="#ff6f61"/>
+            </g>
+          </svg>
+          <span class="font-semibold tracking-wide">JDSS Youth – JDSS KA MURTHI</span>
+        </a>
+
+        <!-- Desktop nav -->
+        <nav class="hidden md:flex items-center gap-6 text-sm">
+          <a href="#about" class="hover:opacity-80">About</a>
+          <a href="#leaders" class="hover:opacity-80">Leaders</a>
+          <a href="#celebrations" class="hover:opacity-80">Celebrations</a>
+          <a href="#mission" class="hover:opacity-80">Mission</a>
+          <a href="#profiles" class="hover:opacity-80">Profiles</a>
+          <a href="#gallery" class="hover:opacity-80">Gallery</a>
+          <a href="#contact" class="hover:opacity-80">Contact</a>
+        </nav>
+
+        <!-- Mobile burger -->
+        <button class="md:hidden p-2 glass" @click="open=!open" aria-label="Menu">☰</button>
+      </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="md:hidden" x-show="open" x-transition>
+      <nav class="px-6 pb-4 space-y-2">
+        <a @click="open=false" class="block glass px-4 py-2" href="#about">About</a>
+        <a @click="open=false" class="block glass px-4 py-2" href="#leaders">Leaders</a>
+        <a @click="open=false" class="block glass px-4 py-2" href="#celebrations">Celebrations</a>
+        <a @click="open=false" class="block glass px-4 py-2" href="#mission">Mission</a>
+        <a @click="open=false" class="block glass px-4 py-2" href="#profiles">Profiles</a>
+        <a @click="open=false" class="block glass px-4 py-2" href="#gallery">Gallery</a>
+        <a @click="open=false" class="block glass px-4 py-2" href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ================= HERO ================= -->
+  <section id="home" class="parallax pt-28">
+    <div class="mx-auto max-w-6xl px-6 py-20 md:py-28">
+      <div class="glass p-8 md:p-12" data-aos="fade-up">
+        <div class="text-center">
+          <p class="text-sm uppercase tracking-widest opacity-90">Since 1997 | Continuing the Tradition till 2025 and Beyond</p>
+          <h1 class="mt-2 text-4xl md:text-6xl font-extrabold leading-tight">JDSS Youth – Jai Durga Seva Samithi</h1>
+          <p class="mt-2 text-lg md:text-xl">(JDSS KA MURTHI) – <span class="font-semibold">IT IS THE MAIN</span></p>
+          <p class="mt-3">📍 Kodimail, Jagityal District – 505501</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT ================= -->
+  <section id="about" class="py-16 md:py-20">
+    <div class="mx-auto max-w-5xl px-6" data-aos="fade-right">
+      <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center">Welcome to JDSS Youth – Jai Durga Seva Samithi</h2>
+      <p class="text-center italic mb-2">(Since 1997 | Continuing the Tradition till 2025 and Beyond)</p>
+      <p class="text-center mb-8">📍 Kodimail, Jagityal District – 505501</p>
+      <div class="prose prose-invert max-w-none glass p-6 md:p-8">
+        <p><strong>JDSS Youth (Jai Durga Seva Samithi)</strong> is a symbol of devotion, culture, and youth power. Since 1997, we have been dedicated to celebrating our traditions with unity, energy, and service. With the blessings of Maa Durga and Lord Ganesh, we bring people together in joy, devotion, and brotherhood.</p>
+        <h3>🙏 Our Celebrations</h3>
+        <ul>
+          <li><strong>Durga Mata Celebrations</strong> – Every year, we organize grand Durga Puja celebrations with devotion, cultural programs, rituals, music, and traditional activities that inspire everyone.</li>
+          <li><strong>Lord Ganesh Celebrations</strong> – JDSS Youth is widely known for its vibrant Ganesh Chaturthi celebrations. From the installation of Lord Ganesh to the final Visarjan (immersion), our youth come together to celebrate with unmatched energy and joy.</li>
+          <li><strong>The last day of Ganesh Chaturthi</strong> is the highlight – with DJ, Band, Bharath (procession), and non-stop celebration that brings the entire community together. This event has become one of the most awaited and loved moments in Kodimail and surrounding areas.</li>
+        </ul>
+        <h3>🌸 Our Mission</h3>
+        <ul>
+          <li>To preserve traditions and pass them to the next generation.</li>
+          <li>To unite youth in the spirit of culture and devotion.</li>
+          <li>To organize events that spread happiness, positivity, and service in society.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= LEADERS ================= -->
+  <section id="leaders" class="py-16 md:py-20 bg-white/5">
+    <div class="mx-auto max-w-6xl px-6" data-aos="zoom-in">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">Group Main Leaders</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="glass p-6 rounded-2xl soft text-center font-semibold">MANIKYAM SRINIVAS</div>
+        <div class="glass p-6 rounded-2xl soft text-center font-semibold">ATLA RAMESH</div>
+        <div class="glass p-6 rounded-2xl soft text-center font-semibold">ATLA MAHESH</div>
+        <div class="glass p-6 rounded-2xl soft text-center font-semibold">ALDI GANESH</div>
+        <div class="glass p-6 rounded-2xl soft text-center font-semibold">BATHINI MALLESH ANNA</div>
+        <div class="glass p-6 rounded-2xl soft text-center font-semibold">ALDI PRASHANTH</div>
+        <div class="glass p-6 rounded-2xl soft text-center font-semibold">KAITHA RAMESH</div>
+        <div class="glass p-6 rounded-2xl soft text-center font-semibold">KAITHA MAHENDHAR</div>
+        <div class="glass p-6 rounded-2xl soft text-center font-semibold">KAITHA MADHU</div>
+      </div>
+
+      <h3 class="text-2xl md:text-3xl font-bold text-center mt-16 mb-6">SUB LEADERS</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="glass p-6 rounded-2xl soft text-center font-semibold">KASARAPU PRANAY</div>
+        <div class="glass p-6 rounded-2xl soft text-center font-semibold">PANNATI MOURYA</div>
+        <div class="glass p-6 rounded-2xl soft text-center font-semibold">KASARAPU VINAY</div>
+        <div class="glass p-6 rounded-2xl soft text-center font-semibold">GAJULA SHIVA</div>
+        <div class="glass p-6 rounded-2xl soft text-center font-semibold">GAJULA AMAR</div>
+         <div class="glass p-6 rounded-2xl soft text-center font-semibold">NAPARI BABBLU</div>
+        <div class="glass p-6 rounded-2xl soft text-center font-semibold">GAJULA RAM CHARAN</div>
+        <div class="glass p-6 rounded-2xl soft text-center font-semibold">NATHE GRISHUWANTH</div>
+      </div>
+
+      <p class="text-center mt-10 opacity-90">IT IS SINCE 1997 TO 2025 TO BE CONTINUED</p>
+    </div>
+  </section>
+
+  <!-- ================= CELEBRATIONS ================= -->
+  <section id="celebrations" class="py-16 md:py-20">
+    <div class="mx-auto max-w-6xl px-6" data-aos="fade-left">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">Our Celebrations</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="glass rounded-2xl p-6 soft">
+          <h3 class="text-2xl font-bold mb-2">Durga Mata Celebrations</h3>
+          <p>Grand Puja with devotion, cultural programs, rituals, music, and traditional activities that inspire everyone.</p>
+        </div>
+        <div class="glass rounded-2xl p-6 soft">
+          <h3 class="text-2xl font-bold mb-2">Lord Ganesh Celebrations</h3>
+          <p>Vibrant Ganesh Chaturthi from installation to Visarjan with unmatched energy and joy.</p>
+        </div>
+        <div class="glass rounded-2xl p-6 soft md:col-span-2">
+          <h3 class="text-2xl font-bold mb-2">Grand Finale Day</h3>
+          <p>DJ, Band, Bharath (procession), and non-stop celebration bringing the entire community together in Kodimail and surrounding areas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MISSION ================= -->
+  <section id="mission" class="py-16 md:py-20 bg-white/5">
+    <div class="mx-auto max-w-4xl px-6" data-aos="fade-up">
+      <div class="glass p-8 md:p-10 rounded-3xl">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-6">Our Mission</h2>
+        <ul class="space-y-3 text-lg">
+          <li>🌸 To preserve traditions and pass them to the next generation.</li>
+          <li>🌸 To unite youth in the spirit of culture and devotion.</li>
+          <li>🌸 To organize events that spread happiness, positivity, and service in society.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PROFILES (Two) ================= -->
+  <section id="profiles" class="py-16 md:py-20">
+    <div class="mx-auto max-w-6xl px-6" data-aos="zoom-in-up">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-6">Upload Two Profiles – JDSS Youth Kodimail</h2>
+      <p class="text-center text-sm opacity-80 mb-8">Add <strong>two member profiles</strong> (photo + details). Saved to your browser. Export/Import JSON to move.
+      </p>
+
+      <form id="profileForm" class="grid lg:grid-cols-2 gap-6">
+        <!-- Profile 1 -->
+        <div class="glass p-6 rounded-2xl">
+          <h3 class="text-xl font-bold mb-4">Profile 1</h3>
+          <label class="block text-sm mb-1">Full Name</label>
+          <input name="name1" class="w-full mb-3 rounded-xl px-4 py-2 text-black" placeholder="Enter name" required>
+          <label class="block text-sm mb-1">Role / Title</label>
+          <input name="role1" class="w-full mb-3 rounded-xl px-4 py-2 text-black" placeholder="Leader / Volunteer">
+          <label class="block text-sm mb-1">Short Bio</label>
+          <textarea name="bio1" class="w-full mb-3 rounded-xl px-4 py-2 text-black" rows="3" placeholder="About this member"></textarea>
+          <label class="block text-sm mb-1">Photo</label>
+          <input name="photo1" type="file" accept="image/*" class="w-full mb-4" />
+          <button type="button" class="save1 w-full rounded-2xl px-4 py-2 bg-white/90 text-black font-semibold soft">Save Profile 1</button>
+        </div>
+        <!-- Profile 2 -->
+        <div class="glass p-6 rounded-2xl">
+          <h3 class="text-xl font-bold mb-4">Profile 2</h3>
+          <label class="block text-sm mb-1">Full Name</label>
+          <input name="name2" class="w-full mb-3 rounded-xl px-4 py-2 text-black" placeholder="Enter name" required>
+          <label class="block text-sm mb-1">Role / Title</label>
+          <input name="role2" class="w-full mb-3 rounded-xl px-4 py-2 text-black" placeholder="Leader / Volunteer">
+          <label class="block text-sm mb-1">Short Bio</label>
+          <textarea name="bio2" class="w-full mb-3 rounded-xl px-4 py-2 text-black" rows="3" placeholder="About this member"></textarea>
+          <label class="block text-sm mb-1">Photo</label>
+          <input name="photo2" type="file" accept="image/*" class="w-full mb-4" />
+          <button type="button" class="save2 w-full rounded-2xl px-4 py-2 bg-white/90 text-black font-semibold soft">Save Profile 2</button>
+        </div>
+      </form>
+
+      <!-- Actions -->
+      <div class="mt-6 flex flex-wrap items-center gap-3 justify-center">
+        <button id="exportProfiles" class="rounded-2xl px-4 py-2 glass soft">Export Profiles (JSON)</button>
+        <label class="glass soft rounded-2xl px-4 py-2 cursor-pointer">Import Profiles (JSON)
+          <input id="importProfiles" type="file" accept="application/json" class="hidden" />
+        </label>
+        <button id="resetProfiles" class="rounded-2xl px-4 py-2 glass soft">Clear Saved Profiles</button>
+      </div>
+
+      <!-- Display Cards -->
+      <div class="grid md:grid-cols-2 gap-6 mt-8" id="profileCards"></div>
+    </div>
+  </section>
+
+  <!-- ================= GALLERY ================= -->
+  <section id="gallery" class="py-16 md:py-20 bg-white/5">
+    <div class="mx-auto max-w-6xl px-6" data-aos="fade-up">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">Photo & Video Gallery</h2>
+      <p class="text-center max-w-3xl mx-auto mb-8">Memories of Ganesh Chaturthi, Durga Mata Puja, and community celebrations since 1997.</p>
+
+      <!-- Featured slideshow -->
+      <div class="glass rounded-3xl overflow-hidden mb-8">
+        <img id="slideImage" src="jdss2.jpg" alt="JDSS slideshow" class="w-full h-[340px] md:h-[440px] object-cover transition-opacity duration-300">
+      </div>
+
+      <!-- Thumbnails grid (click to lightbox) -->
+      <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <img data-lightbox="img" src="jdss2.jpg" alt="Ganesh Celebration" class="rounded-2xl soft w-full h-52 object-cover cursor-pointer">
+        <img data-lightbox="img" src="jdss3.jpg" alt="Durga Puja" class="rounded-2xl soft w-full h-52 object-cover cursor-pointer">
+        <img data-lightbox="img" src="jdss4.jpg" alt="Procession" class="rounded-2xl soft w-full h-52 object-cover cursor-pointer">
+        <img data-lightbox="img" src="jdss5.jpg" alt="Decorations" class="rounded-2xl soft w-full h-52 object-cover cursor-pointer">
+        <img data-lightbox="img" src="jdss6.jpg" alt="Community" class="rounded-2xl soft w-full h-52 object-cover cursor-pointer">
+        <video data-lightbox="video" class="rounded-2xl soft w-full h-52 object-cover cursor-pointer" muted>
+          <source src="jdss-video.mp4" type="video/mp4"/>
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section id="contact" class="py-16 md:py-20">
+    <div class="mx-auto max-w-4xl px-6" data-aos="fade-up">
+      <div class="glass p-8 rounded-3xl text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">Contact Us</h2>
+        <p class="text-lg mb-2">📱 Phone Numbers: <strong>77940 44674</strong> / <strong>72074 55422</strong></p>
+        <p class="text-lg mb-2">📸 Instagram: <strong>@jdss_ka_murthi</strong></p>
+        <p class="text-lg mb-2">📧 Email: <strong>pranaykasarapu@gmail.com</strong></p>
+        <p class="mt-4">💖 JDSS Youth – Jai Durga Seva Samithi</p>
+        <p>✨ Celebrating Faith. Inspiring Youth. Uniting People.</p>
+        <p class="mt-2">🔥 From 1997 to 2025 and beyond – our devotion and celebrations will never stop!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="py-6 text-center text-sm border-t border-white/10">
+    <p>© JDSS Youth – Jai Durga Seva Samithi • Kodimail, Jagityal District – 505501</p>
+  </footer>
+
+  <!-- Floating WhatsApp button -->
+  <a href="https://wa.me/917794044674" class="fixed bottom-5 right-5 rounded-full glass soft p-3" aria-label="WhatsApp">
+    <span class="text-2xl">💬</span>
+  </a>
+
+  <!-- ================= SCRIPTS ================= -->
+  <script>
+    // AOS
+    AOS.init({ duration: 700, once: true });
+
+    // HERO/GALLERY SLIDESHOW
+    const slideImages = ["jdss1.jpg","jdss2.jpg","jdss3.jpg","jdss4.jpg"]; // Replace with your images
+    const slideEl = document.getElementById('slideImage');
+    let slideIdx = 0;
+    setInterval(()=>{
+      slideIdx = (slideIdx + 1) % slideImages.length;
+      if(slideEl){ slideEl.style.opacity=0; setTimeout(()=>{ slideEl.src = slideImages[slideIdx]; slideEl.style.opacity=1; },250); }
+    }, 3500);
+
+    // LIGHTBOX
+    const lb = document.createElement('div');
+    lb.className = 'lightbox';
+    lb.innerHTML = `<button class="close glass p-2 rounded-xl">✕</button><div id="lbContent"></div>`;
+    document.body.appendChild(lb);
+    const lbContent = lb.querySelector('#lbContent');
+    const lbClose = ()=>{ lb.classList.remove('open'); lbContent.innerHTML=''; };
+    lb.querySelector('.close').addEventListener('click', lbClose);
+    lb.addEventListener('click', (e)=>{ if(e.target===lb) lbClose(); });
+    document.querySelectorAll('[data-lightbox="img"]').forEach(img=>{
+      img.addEventListener('click', ()=>{ lbContent.innerHTML = `<img src='${img.src}' alt='${img.alt}'>`; lb.classList.add('open'); });
+    });
+    document.querySelectorAll('[data-lightbox="video"]').forEach(v=>{
+      v.addEventListener('click', ()=>{ const src = v.querySelector('source')?.src || ''; lbContent.innerHTML = `<video controls autoplay><source src='${src}' type='video/mp4'></video>`; lb.classList.add('open'); });
+    });
+
+    // PROFILES (LocalStorage + Import/Export)
+    const cards = document.getElementById('profileCards');
+    function loadProfiles(){ return JSON.parse(localStorage.getItem('jdss_profiles')||'[]'); }
+    function saveProfiles(list){ localStorage.setItem('jdss_profiles', JSON.stringify(list)); }
+    function fileToDataURL(file){ return new Promise((res,rej)=>{ if(!file) return res(null); const r=new FileReader(); r.onload=()=>res(r.result); r.onerror=rej; r.readAsDataURL(file); }); }
+    function renderCards(list){
+      cards.innerHTML='';
+      list.forEach((p,i)=>{
+        const img = p.photo ? `<img src='${p.photo}' alt='${p.name}' class='w-full h-56 object-cover rounded-2xl'/>` : `<div class='w-full h-56 rounded-2xl glass flex items-center justify-center text-5xl'>👤</div>`;
+        const el = document.createElement('article');
+        el.className='glass p-5 rounded-3xl soft';
+        el.innerHTML = `${img}
+          <h4 class='mt-4 text-xl font-bold'>${p.name||'Unnamed'}</h4>
+          <p class='opacity-90'>${p.role||''}</p>
+          <p class='mt-2 text-sm leading-relaxed'>${p.bio||''}</p>
+          <div class='mt-4 flex gap-2'>
+            <button data-i='${i}' class='edit rounded-xl px-3 py-2 glass'>Edit</button>
+            <button data-i='${i}' class='remove rounded-xl px-3 py-2 glass'>Remove</button>
+          </div>`;
+        cards.appendChild(el);
+      });
+    }
+    renderCards(loadProfiles());
+
+    document.querySelector('.save1').addEventListener('click', async ()=>{
+      const f = document.getElementById('profileForm');
+      const name=f.name1.value.trim(); if(!name) return alert('Please enter name for Profile 1');
+      const role=f.role1.value.trim(); const bio=f.bio1.value.trim();
+      const photo=await fileToDataURL(f.photo1.files[0]);
+      const list=loadProfiles(); list[0] = {name,role,bio,photo}; saveProfiles(list); renderCards(list); alert('Profile 1 saved');
+    });
+    document.querySelector('.save2').addEventListener('click', async ()=>{
+      const f = document.getElementById('profileForm');
+      const name=f.name2.value.trim(); if(!name) return alert('Please enter name for Profile 2');
+      const role=f.role2.value.trim(); const bio=f.bio2.value.trim();
+      const photo=await fileToDataURL(f.photo2.files[0]);
+      const list=loadProfiles(); list[1] = {name,role,bio,photo}; saveProfiles(list); renderCards(list); alert('Profile 2 saved');
+    });
+
+    cards.addEventListener('click', (e)=>{
+      const btn=e.target.closest('button'); if(!btn) return; const idx=+btn.dataset.i; const list=loadProfiles();
+      if(btn.classList.contains('remove')){ list.splice(idx,1); saveProfiles(list); renderCards(list); return; }
+      if(btn.classList.contains('edit')){
+        const p=list[idx]; const f=document.getElementById('profileForm');
+        if(idx===0){ f.name1.value=p.name||''; f.role1.value=p.role||''; f.bio1.value=p.bio||''; }
+        if(idx===1){ f.name2.value=p.name||''; f.role2.value=p.role||''; f.bio2.value=p.bio||''; }
+        window.scrollTo({ top: document.getElementById('profiles').offsetTop-80, behavior:'smooth' });
+      }
+    });
+
+    document.getElementById('exportProfiles').addEventListener('click', ()=>{
+      const data = new Blob([JSON.stringify(loadProfiles(), null, 2)], {type:'application/json'});
+      const url = URL.createObjectURL(data); const a=document.createElement('a'); a.href=url; a.download='jdss-profiles.json'; a.click(); URL.revokeObjectURL(url);
+    });
+    document.getElementById('importProfiles').addEventListener('change', async (e)=>{
+      const file=e.target.files[0]; if(!file) return; const txt=await file.text();
+      try{ const arr=JSON.parse(txt); saveProfiles(arr); renderCards(arr); alert('Profiles imported'); }catch{ alert('Invalid JSON'); }
+    });
+    document.getElementById('resetProfiles').addEventListener('click', ()=>{ if(confirm('Clear saved profiles from this browser?')){ localStorage.removeItem('jdss_profiles'); renderCards([]); } });
+  </script>
+</body>
+</html>
+```
